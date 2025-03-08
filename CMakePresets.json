@@ -1,0 +1,25 @@
+{
+    "version": 2,
+    "configurePresets": [
+	{
+	    "name": "debug",
+	    "displayName": "Clang Debug",
+	    "description": "Debug build options for Clang",
+	    "generator": "Ninja",
+	    "binaryDir": "${sourceDir}/build",
+	    "cacheVariables": {
+		"CMAKE_CXX_FLAGS": "-Wall -Wextra -g"
+	    }
+	},
+	{
+	    "name": "release",
+	    "displayName": "Clang Release",
+	    "description": "Release build options for Clang",
+	    "generator": "Ninja",
+	    "binaryDir": "${sourceDir}/build",
+	    "cacheVariables": {
+		"CMAKE_CXX_FLAGS": "-O3"
+	    }
+	}
+    ]
+}
