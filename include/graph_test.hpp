@@ -1,5 +1,5 @@
-#ifndef ALGO_TEST_H
-#define ALGO_TEST_H
+#ifndef GRAPH_TEST_H
+#define GRAPH_TEST_H
 
 #include "data.hpp"
 #include <array>
