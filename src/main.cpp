@@ -1,5 +1,4 @@
-#include <iostream>
 #include "graph.hpp"
+#include <iostream>
 
-int main() { return 0; }
-
+int main() {}

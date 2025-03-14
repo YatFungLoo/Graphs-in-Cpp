@@ -9,14 +9,12 @@ TEST(getterTest, HandlesPositiveInput) {
     EXPECT_EQ(myGraph.getEdges(), 0);
 };
 
-// // setter tests
-// TEST(setterTest, HandlesPositiveInput) {
-//     Graph myGraph(4);
-//     myGraph.setEdges(4);
-//     EXPECT_EQ(myGraph.getEdges(), 4);
-//     myGraph.setVertex(4);
-//     EXPECT_EQ(myGraph.getVertex(), 4);
-// };
+// setter tests
+TEST(resizeTest, HandlesPositiveInput) {
+    Graph myGraph(4);
+    myGraph.resizeVertex(6);
+    EXPECT_EQ(myGraph.getVertex(), 6);
+};
 
 // adding edge tests
 TEST(addEdgeTest, HandlesPositiveInput) {
@@ -25,4 +23,61 @@ TEST(addEdgeTest, HandlesPositiveInput) {
     EXPECT_EQ(myGraph.getEdges(), 1);
     myGraph.addEdge(1, 2);
     EXPECT_EQ(myGraph.getEdges(), 2);
+    myGraph.addEdge(3, 2);
+    EXPECT_EQ(myGraph.getEdges(), 3);
+}
+
+// print edge(s) tests
+TEST(iterateEdgeTest, HandlePositiveInput) {
+    Graph myGraph(4);
+    myGraph.addEdge(1, 0);
+    myGraph.addEdge(1, 2);
+    myGraph.addEdge(2, 3);
+    myGraph.addEdge(3, 0);
+
+    testing::internal::CaptureStdout();
+    myGraph.printIterEdges(0);
+    std::string output_0 = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output_0, "1, 3\n");
+
+    testing::internal::CaptureStdout();
+    myGraph.printIterEdges(1);
+    std::string output_1 = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output_1, "0, 2\n");
+
+    testing::internal::CaptureStdout();
+    myGraph.printIterEdges(2);
+    std::string output_2 = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output_2, "1, 3\n");
+
+    testing::internal::CaptureStdout();
+    myGraph.printIterEdges(3);
+    std::string output_3 = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output_3, "2, 0\n");
+}
+
+// delete edge tests
+TEST(deleteEdgeTest, HandlesPositiveInput) {
+    Graph myGraph(4);
+    myGraph.addEdge(1, 0);
+    myGraph.addEdge(1, 2);
+    myGraph.addEdge(3, 2);
+
+    myGraph.deleteEdge(1, 0);
+    testing::internal::CaptureStdout();
+    myGraph.printIterEdges(1);
+    std::string output_0 = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output_0, "2\n");
+
+    myGraph.deleteEdge(1, 2);
+    testing::internal::CaptureStdout();
+    myGraph.printIterEdges(1);
+    std::string output_1 = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output_1, "No edges are connected to this vertex.\n");
+
+    myGraph.deleteEdge(3, 2);
+    testing::internal::CaptureStdout();
+    myGraph.printIterEdges(3);
+    std::string output_2 = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output_2, "No edges are connected to this vertex.\n");
 }
