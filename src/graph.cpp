@@ -1,5 +1,72 @@
 #include "graph.hpp"
 
+/**
+ * @brief Convert input string into int and return the value with try catch.
+ *
+ * @param line input string
+ * @return int conveted from input string
+ */
+int Graph::string2int(const std::string &line) {
+    std::size_t pos{};
+    try {
+        const int ret{std::stoi(line, &pos)};
+        return ret;
+    } catch (std::invalid_argument const &ex) {
+        std::cout << "std::invalid_argument::what(): " << ex.what() << '\n';
+    } catch (std::out_of_range const &ex) {
+        std::cout << "std::out_of_range::what(): " << ex.what() << '\n';
+        const long long ll{std::stoll(line, &pos)};
+        std::cout << "std::stoll(" << std::quoted(line) << "): " << ll << "; pos: " << pos << '\n';
+    }
+    return EPERM;
+}
+
+/**
+ * @brief take input string and return first two int.
+ *
+ * @param line
+ * @return std::vector
+ */
+std::vector<int> Graph::string2vector(const std::string &line) {
+    std::stringstream ss(line);
+    auto start = std::istream_iterator<int>{ss};
+    auto end = std::istream_iterator<int>{};
+    // Note: this is new to me, remember this!!!
+    std::vector<int> ret(start, end);
+    return ret;
+}
+
+/**
+ * @brief read text file and add to graph object called.
+ *
+ * @param filename
+ */
+void Graph::readFile(char *filename) {
+    // open file for reading
+    std::ifstream istrm(filename, std::ios::binary);
+    std::string line;
+    if (!istrm.is_open())
+        std::cout << "failed to open " << filename << '\n';
+    else {
+        // first line: number of vertice(s)
+        std::getline(istrm, line);
+        vertex = string2int(line);
+        resizeVertex(vertex);
+        // second line: number of edge(s)
+        std::getline(istrm, line);
+        edges = string2int(line);
+        // rest of the lines: edge pairs
+        while (std::getline(istrm, line)) {
+            std::vector<int> e = string2vector(line);
+            if (e[0] > vertex || e[1] > vertex) {
+                throw std::invalid_argument("Vertex larger than specified.");
+            }
+            (*adj)[e[0]].push_back(e[1]);
+        }
+        istrm.close();
+    }
+}
+
 void Graph::resizeVertex(int V) {
     (*adj).resize(V);
     vertex = V;
