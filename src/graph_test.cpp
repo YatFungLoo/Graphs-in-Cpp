@@ -1,5 +1,6 @@
 #include "graph_test.hpp"
 #include "graph.hpp"
+#include "graph_algo.hpp"
 #include <gtest/gtest.h>
 
 // getter tests
@@ -111,4 +112,19 @@ TEST(selfLoopTest, HandlesPositiveInput) {
     myGraph.addEdge(3, 2);
     myGraph.addEdge(3, 3);
     EXPECT_EQ(myGraph.selfLoop(), 2);
+}
+
+// search class test
+TEST(searchClassTest, HandlesPositiveInput) {
+    Graph myGraph(4);
+    myGraph.addEdge(1, 1);
+    myGraph.addEdge(1, 2);
+    myGraph.addEdge(3, 1);
+    myGraph.addEdge(3, 2);
+    myGraph.addEdge(3, 3);
+
+    Search mySearch(myGraph, 2);
+    EXPECT_EQ(mySearch.count(), 2);
+    EXPECT_EQ(mySearch.marked(1), true);
+    EXPECT_EQ(mySearch.marked(3), true);
 }

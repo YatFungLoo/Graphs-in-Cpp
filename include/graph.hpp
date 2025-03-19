@@ -30,18 +30,20 @@ class Graph {
     void deleteEdge(int v, int w);
     void doesEdgeExist(int v, int w);
     void printIterEdges(int v);
-    int degree(int v);
+    const std::vector<int> iterEdges(int v) { return (*adj)[v]; }
+    int degree(int v) { return (*adj)[v].size(); }
     int maxDegree();
-    int avgDegree();
+    // 2 times due to each edge connected to two vertices.
+    int avgDegree() { return (2 * edges) / vertex; }
     int selfLoop();
 
   private:
     int vertex;
     int edges;
-    std::unique_ptr<std::vector<std::vector<int>>> adj;
+    // Shared for used in search and additional algorithm class.
+    std::shared_ptr<std::vector<std::vector<int>>> adj;
 
     bool edgeExistChecker(int v, int w, bool del);
-    std::vector<int> iterEdges(int v);
     int string2int(const std::string &line);
     std::vector<int> string2vector(const std::string &line);
 };

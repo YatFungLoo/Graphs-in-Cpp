@@ -56,15 +56,20 @@ void Graph::readFile(char *filename) {
         std::getline(istrm, line);
         edges = string2int(line);
         // rest of the lines: edge pairs
+        int e_checker = 0; // For verifying user provided number of edge(s)
         while (std::getline(istrm, line)) {
             std::vector<int> e = string2vector(line);
             if (e[0] > vertex || e[1] > vertex) {
                 throw std::invalid_argument("Vertex larger than specified.");
             }
             (*adj)[e[0]].push_back(e[1]);
+            (*adj)[e[1]].push_back(e[0]);
+            e_checker++;
         }
-        istrm.close();
+        if (edges != e_checker)
+            std::cerr << "Warning: Provided number of edges does not match self counted edges." << std::endl;
     }
+    istrm.close();
 }
 
 void Graph::resizeVertex(int V) {
@@ -121,8 +126,8 @@ void Graph::doesEdgeExist(int v, int w) {
  */
 bool Graph::edgeExistChecker(int v, int w, bool del) {
     auto &adj_ref = *adj;
-    auto it_v = std::find_if(adj_ref[v].begin(), adj_ref[v].end(), [w](const int W) { return W == w; });
-    auto it_w = std::find_if(adj_ref[w].begin(), adj_ref[w].end(), [v](const int V) { return V == v; });
+    auto it_v = std::find_if(adj_ref[v].begin(), adj_ref[v].end(), [w](const int &W) { return W == w; });
+    auto it_w = std::find_if(adj_ref[w].begin(), adj_ref[w].end(), [v](const int &V) { return V == v; });
     if (it_v != adj_ref[v].end() && it_w != adj_ref[w].end()) {
         if (del == true) {
             adj_ref[v].erase(it_v);
@@ -155,14 +160,6 @@ void Graph::printIterEdges(int v) {
 }
 
 /**
- * @brief return degree of given vertex.
- *
- * @param v
- * @return int
- */
-int Graph::degree(int v) { return (*adj)[v].size(); }
-
-/**
  * @brief return maximum degree of the graph.
  *
  * @return int
@@ -177,16 +174,9 @@ int Graph::maxDegree() {
 }
 
 /**
- * @brief averge degree
- * 
- * @return int 
- */
-int Graph::avgDegree() { return (2 * edges) / vertex; }
-
-/**
  * @brief return number of self loops in the graph.
- * 
- * @return int 
+ *
+ * @return int
  */
 int Graph::selfLoop() {
     int sl = 0; // self loop count
@@ -196,18 +186,5 @@ int Graph::selfLoop() {
                 sl++;
         }
     }
-    return sl/2;
-}
-
-/**
- * @brief return edges of given vertex.
- *
- * @param v vertex
- * @return std::vector<int> ret
- */
-std::vector<int> Graph::iterEdges(int v) {
-    std::vector<int> ret;
-    for (auto &i : (*adj)[v])
-        ret.push_back(i);
-    return ret;
+    return sl / 2;
 }

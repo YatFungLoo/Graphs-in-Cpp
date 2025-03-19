@@ -25,6 +25,7 @@ project(
 set(SOURCES
   src/main.cpp
   src/graph.cpp
+  src/graph_algo.cpp
 )
 
 ### Executable statement ###
@@ -54,6 +55,7 @@ add_executable(
   graph_test
   src/graph_test.cpp
   src/graph.cpp
+  src/graph_algo.cpp
 )
 target_link_libraries(
   graph_test
