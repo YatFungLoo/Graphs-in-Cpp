@@ -30,6 +30,10 @@ class Graph {
     void deleteEdge(int v, int w);
     void doesEdgeExist(int v, int w);
     void printIterEdges(int v);
+    int degree(int v);
+    int maxDegree();
+    int avgDegree();
+    int selfLoop();
 
   private:
     int vertex;
