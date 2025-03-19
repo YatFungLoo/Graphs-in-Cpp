@@ -81,3 +81,34 @@ TEST(deleteEdgeTest, HandlesPositiveInput) {
     std::string output_2 = testing::internal::GetCapturedStdout();
     EXPECT_EQ(output_2, "No edges are connected to this vertex.\n");
 }
+
+// degree tests
+TEST(degreeTest, HandlesPositiveInput) {
+    Graph myGraph(4);
+    myGraph.addEdge(1, 0);
+    myGraph.addEdge(1, 2);
+    myGraph.addEdge(3, 1);
+    myGraph.addEdge(2, 1);
+    EXPECT_EQ(myGraph.degree(1), 4);
+}
+
+// max degree tests
+TEST(maxDegreeTest, HandlesPositiveInput) {
+    Graph myGraph(4);
+    myGraph.addEdge(1, 0);
+    myGraph.addEdge(1, 2);
+    myGraph.addEdge(3, 1);
+    myGraph.addEdge(3, 2);
+    EXPECT_EQ(myGraph.maxDegree(), 3);
+}
+
+// self loop counter tests
+TEST(selfLoopTest, HandlesPositiveInput) {
+    Graph myGraph(4);
+    myGraph.addEdge(1, 1);
+    myGraph.addEdge(1, 2);
+    myGraph.addEdge(3, 1);
+    myGraph.addEdge(3, 2);
+    myGraph.addEdge(3, 3);
+    EXPECT_EQ(myGraph.selfLoop(), 2);
+}

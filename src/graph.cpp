@@ -155,6 +155,51 @@ void Graph::printIterEdges(int v) {
 }
 
 /**
+ * @brief return degree of given vertex.
+ *
+ * @param v
+ * @return int
+ */
+int Graph::degree(int v) { return (*adj)[v].size(); }
+
+/**
+ * @brief return maximum degree of the graph.
+ *
+ * @return int
+ */
+int Graph::maxDegree() {
+    int max = 0;
+    int size = (*adj).size();
+    for (int i = 0; i < size; i++) {
+        max = std::max(degree(i), max);
+    }
+    return max;
+}
+
+/**
+ * @brief averge degree
+ * 
+ * @return int 
+ */
+int Graph::avgDegree() { return (2 * edges) / vertex; }
+
+/**
+ * @brief return number of self loops in the graph.
+ * 
+ * @return int 
+ */
+int Graph::selfLoop() {
+    int sl = 0; // self loop count
+    for (int v = 0; v < vertex; v++) {
+        for (auto &w : (*adj)[v]) {
+            if (v == w)
+                sl++;
+        }
+    }
+    return sl/2;
+}
+
+/**
  * @brief return edges of given vertex.
  *
  * @param v vertex
