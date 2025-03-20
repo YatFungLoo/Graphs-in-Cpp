@@ -13,7 +13,7 @@ class Search {
 
   private:
     Graph &g;
-    int s;  // source
+    int s; // source
 };
 
 #endif

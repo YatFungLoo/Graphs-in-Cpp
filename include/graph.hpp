@@ -7,6 +7,7 @@
 #include <errno.h>
 #include <fstream>
 #include <iostream>
+#include <iterator>
 #include <memory>
 #include <sstream>
 #include <stdexcept>
