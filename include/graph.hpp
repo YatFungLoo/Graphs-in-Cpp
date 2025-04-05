@@ -31,7 +31,7 @@ class Graph {
     void deleteEdge(int v, int w);
     void doesEdgeExist(int v, int w);
     void printIterEdges(int v);
-    const std::vector<int> iterEdges(int v) { return (*adj)[v]; }
+    const std::vector<int> getEdges(int v) { return (*adj)[v]; }
     int degree(int v) { return (*adj)[v].size(); }
     int maxDegree();
     // 2 times due to each edge connected to two vertices.
