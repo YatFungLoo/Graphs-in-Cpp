@@ -83,6 +83,41 @@ TEST(deleteEdgeTest, HandlesPositiveInput) {
     EXPECT_EQ(output_2, "No edges are connected to this vertex.\n");
 }
 
+// verbol edge checker tests
+TEST(doesEdgeExistTest, HandlesPositiveInput) {
+    Graph myGraph(4);
+    myGraph.addEdge(1, 0);
+    myGraph.addEdge(1, 2);
+    myGraph.addEdge(3, 1);
+    myGraph.addEdge(2, 1);
+
+    testing::internal::CaptureStdout();
+    myGraph.doesEdgeExist(1, 0);
+    std::string output_0 = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output_0, "Edge 1-0 found.\n");
+    testing::internal::CaptureStdout();
+    myGraph.doesEdgeExist(1, 2);
+    std::string output_1 = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output_1, "Edge 1-2 found.\n");
+    testing::internal::CaptureStdout();
+    myGraph.doesEdgeExist(3, 1);
+    std::string output_2 = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output_2, "Edge 3-1 found.\n");
+    testing::internal::CaptureStdout();
+    myGraph.doesEdgeExist(2, 1);
+    std::string output_3 = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output_3, "Edge 2-1 found.\n");
+
+    testing::internal::CaptureStdout();
+    myGraph.doesEdgeExist(3, 0);
+    std::string output_4 = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output_4, "Edge 3-0 not found.\n");
+    testing::internal::CaptureStdout();
+    myGraph.doesEdgeExist(2, 0);
+    std::string output_5 = testing::internal::GetCapturedStdout();
+    EXPECT_EQ(output_5, "Edge 2-0 not found.\n");
+}
+
 // degree tests
 TEST(degreeTest, HandlesPositiveInput) {
     Graph myGraph(4);
