@@ -163,3 +163,55 @@ TEST(searchClassTest, HandlesPositiveInput) {
     EXPECT_EQ(mySearch.marked(1), true);
     EXPECT_EQ(mySearch.marked(3), true);
 }
+
+TEST(mySearchClassTest, HandlesPositiveInput) {
+    Graph myGraph(13);
+    myGraph.addEdge(0, 5);
+    myGraph.addEdge(4, 3);
+    myGraph.addEdge(0, 1);
+    myGraph.addEdge(9, 12);
+    myGraph.addEdge(6, 4);
+    myGraph.addEdge(5, 4);
+    myGraph.addEdge(0, 2);
+    myGraph.addEdge(11, 12);
+    myGraph.addEdge(9, 10);
+    myGraph.addEdge(0, 6);
+    myGraph.addEdge(7, 8);
+    myGraph.addEdge(9, 11);
+    myGraph.addEdge(5, 3);
+
+    Search mySearch(myGraph, 0);
+    EXPECT_EQ(mySearch.marked(1), true);
+    EXPECT_EQ(mySearch.marked(2), true);
+    EXPECT_EQ(mySearch.marked(5), true);
+    EXPECT_EQ(mySearch.marked(6), true);
+    EXPECT_EQ(mySearch.marked(7), false);
+    EXPECT_EQ(mySearch.marked(11), false);
+}
+
+TEST(DepthFirstSearchClassTest, HandlesPositiveInput) {
+    Graph myGraph(13);
+    myGraph.addEdge(0, 5);
+    myGraph.addEdge(4, 3);
+    myGraph.addEdge(0, 1);
+    myGraph.addEdge(9, 12);
+    myGraph.addEdge(6, 4);
+    myGraph.addEdge(5, 4);
+    myGraph.addEdge(0, 2);
+    myGraph.addEdge(11, 12);
+    myGraph.addEdge(9, 10);
+    myGraph.addEdge(0, 6);
+    myGraph.addEdge(7, 8);
+    myGraph.addEdge(9, 11);
+    myGraph.addEdge(5, 3);
+
+    DepthFirstSearch dfs(myGraph, 0);
+    auto marked = dfs.retMarked();
+    for (int i = 0; i < static_cast<int>(marked.size()); i++) {
+        if (i <= 6) {
+            EXPECT_EQ(marked[i], true);
+        }
+        if (i >= 7)
+            EXPECT_EQ(marked[i], false);
+    }
+}
