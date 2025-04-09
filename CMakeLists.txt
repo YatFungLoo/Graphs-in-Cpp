@@ -7,7 +7,7 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 ### Compiler settings ###
 set(CMAKE_C_COMPILER clang)
 set(CMAKE_CXX_COMPILER clang++)
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 ### default C++ compile flag ###
@@ -25,6 +25,7 @@ project(
 set(SOURCES
   src/main.cpp
   src/graph.cpp
+  src/graph_algo.cpp
 )
 
 ### Executable statement ###
@@ -54,6 +55,7 @@ add_executable(
   graph_test
   src/graph_test.cpp
   src/graph.cpp
+  src/graph_algo.cpp
 )
 target_link_libraries(
   graph_test
