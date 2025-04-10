@@ -3,11 +3,9 @@
 int Search::count() { return g.degree(s); }
 
 bool Search::marked(const int &v) {
-    // inconsistent results when using any_of.
-    // return std::any_of(begin(g.iterEdges(v)), end(g.iterEdges(v)), [this](const int &v) { return v == this->s; });
-
-    auto it = std::find_if(begin(g.getEdges(v)), end(g.getEdges(v)), [this](const auto &v) { return v == this->s; });
-    return it != end(g.getEdges(v)) ? true : false;
+    return std::any_of(begin(g.getEdges(v)), end(g.getEdges(v)), [this](const auto &w) { return w == this->s; });
+    // auto it = std::find_if(begin(g.getEdges(v)), end(g.getEdges(v)), [this](const auto &w) { return w == this->s; });
+    // return it != end(g.getEdges(v));
 }
 
 void DepthFirstSearch::dfs(Graph &g, int v) {
