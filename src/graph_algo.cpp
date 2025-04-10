@@ -8,7 +8,7 @@ bool Search::marked(const int &v) {
     // return it != end(g.getEdges(v));
 }
 
-void DepthFirstSearch::dfs(Graph &g, int v) {
+void DepthFirstSearch::dfs(Graph &g, const int v) {
     marked[v] = true;
     count++;
     const auto adj = g.getEdges(v);
@@ -16,4 +16,22 @@ void DepthFirstSearch::dfs(Graph &g, int v) {
         if (!marked[w])
             dfs(g, w);
     }
+}
+
+void dfsPaths::dfp(Graph &g, int v) {
+    marked[v] = true;
+    const auto adj = g.getEdges(v);
+    for (auto &w : adj) {
+        if (!marked[w]) {
+            edgeTo[w] = v;
+            dfp(g, w);
+        }
+    }
+}
+
+std::vector<int> dfsPaths::hasPathTo(const int v) {
+    if (!isConnected(v))
+        return {};
+    // std::stack<int>;
+    return {};
 }

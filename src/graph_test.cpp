@@ -215,3 +215,25 @@ TEST(DepthFirstSearchClassTest, HandlesPositiveInput) {
             EXPECT_EQ(marked[i], false);
     }
 }
+
+TEST(DepthFirstSearchConnectTest, HandlesPositiveInput) {
+    Graph myGraph(13);
+    myGraph.addEdge(0, 5);
+    myGraph.addEdge(4, 3);
+    myGraph.addEdge(0, 1);
+    myGraph.addEdge(9, 12);
+    myGraph.addEdge(6, 4);
+    myGraph.addEdge(5, 4);
+    myGraph.addEdge(0, 2);
+    myGraph.addEdge(11, 12);
+    myGraph.addEdge(9, 10);
+    myGraph.addEdge(0, 6);
+    myGraph.addEdge(7, 8);
+    myGraph.addEdge(9, 11);
+    myGraph.addEdge(5, 3);
+
+    DepthFirstSearch dfs_0(myGraph, 4);
+    EXPECT_EQ(dfs_0.isConnected(9), false);
+    DepthFirstSearch dfs_1(myGraph, 0);
+    EXPECT_EQ(dfs_1.isConnected(5), true);
+}
