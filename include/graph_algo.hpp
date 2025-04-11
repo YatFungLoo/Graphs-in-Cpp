@@ -3,8 +3,8 @@
 
 #include "graph.hpp"
 #include <algorithm>
-#include <vector>
 #include <stack>
+#include <vector>
 
 class Search {
   public:
@@ -47,8 +47,10 @@ class dfsPaths {
         edgeTo.resize(g.getVertex());
         dfp(g, s);
     }
+    int source() { return s; }
     bool isConnected(const int w) { return marked[w]; }
-    std::vector<int> hasPathTo (const int v);
+    std::stack<int> hasPathTo(const int v);
+    void printPathTo(const int v);
 
   private:
     Graph &g;
